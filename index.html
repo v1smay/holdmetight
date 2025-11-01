@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To the Moon and Back</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basic setup */
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- Starry Background Effect (Simplified) --- */
+        body {
+            background: 
+                radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        }
+
+        .stars {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 150px 100px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 190px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 160px 120px, #eee, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            animation: moveStars 50s linear infinite;
+        }
+
+        @keyframes moveStars {
+          from { background-position: 0 0; }
+          to   { background-position: 0 1000px; }
+        }
+        
+        /* Container for the message */
+        .container {
+            display: flex;
+            flex-direction: column; /* Stacks items vertically */
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 20px; /* Add some padding */
+            box-sizing: border-box; /* Include padding in height/width */
+        }
+
+        /* The "i loveee youuu" message */
+        .message {
+            font-size: 5rem; /* Large font size */
+            color: #fff;
+            font-weight: 700;
+            font-style: italic;
+            
+            /* Glowing text effect */
+            text-shadow: 
+                0 0 10px #fff,
+                0 0 20px #fff,
+                0 0 40px #E60073, /* A touch of pink/magenta glow */
+                0 0 70px #E60073,
+                0 0 100px #E60073;
+            
+            /* Subtle pulsing animation */
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        /* Pulsing animation keyframes */
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 40px #E60073,
+                    0 0 70px #E60073,
+                    0 0 100px #E60073;
+            }
+            50% {
+                text-shadow: 
+                    0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 20px #E60073,
+                    0 0 40px #E60073,
+                    0 0 70px #E60073;
+            }
+        }
+        
+        /* --- NEW: The new sub-message --- */
+        .sub-message {
+            font-family: 'Roboto', sans-serif; /* Use a more readable font */
+            font-size: 1.1rem;
+            color: #ddd;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-top: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-shadow: 0 0 5px #fff, 0 0 10px #a942ff; /* Using a purple-ish glow */
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 2s ease-in-out 3s forwards; /* Fade in after 3s */
+        }
+
+        /* --- NEW: Animation for the sub-message to fade in --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Glowing Moon */
+        .moon {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            
+            /* Moon glow */
+            box-shadow: 
+                0 0 20px #fff,
+                0 0 40px #fff,
+                0 0 60px #fff,
+                inset -30px -20px 40px #ccc; /* Simulates craters/shadows */
+            
+            /* Moon rising animation */
+            animation: rise 10s ease-out forwards;
+        }
+
+        @keyframes rise {
+            from {
+                bottom: -200px;
+                right: -200px;
+                opacity: 0;
+            }
+            to {
+                bottom: -50px;
+                right: -50px;
+                opacity: 1;
+            }
+        }
+
+        /* Responsive adjustment for small screens */
+        @media (max-width: 600px) {
+            .message {
+                font-size: 3rem;
+            }
+            /* --- NEW: Responsive style for sub-message --- */
+            .sub-message {
+                font-size: 0.9rem;
+                margin-top: 20px;
+            }
+            .moon {
+                width: 100px;
+                height: 100px;
+                bottom: -25px;
+                right: -25px;
+            }
+            @keyframes rise {
+                to {
+                    bottom: -25px;
+                    right: -25px;
+                    opacity: 1;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <div class="moon"></div>
+        <div class="message">
+            i loveee youuu dishuuu
+        </div>
+        
+        <div class="sub-message">
+            From today till the next 7 days , there will be a feature added based on how our days go. Kiss me and check here at 10pm daily for details
+        </div>
+    </div>
+</body>
+</html>
