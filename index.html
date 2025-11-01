@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>To the Moon and Back</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+
     <style>
         /* Basic setup */
+        :root{
+            --accent: #E60073;
+            --soft: #a942ff;
+            --muted: #ddd;
+        }
         body, html {
             height: 100%;
             margin: 0;
@@ -16,9 +22,9 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* --- Starry Background Effect (Simplified) --- */
+        /* Starry Background */
         body {
-            background: 
+            background:
                 radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         }
 
@@ -28,7 +34,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background-image: 
+            background-image:
                 radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 50px 160px, #ddd, rgba(0,0,0,0)),
@@ -38,92 +44,160 @@
                 radial-gradient(1px 1px at 160px 120px, #eee, rgba(0,0,0,0));
             background-size: 200px 200px;
             animation: moveStars 50s linear infinite;
+            z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes moveStars {
           from { background-position: 0 0; }
           to   { background-position: 0 1000px; }
         }
-        
-        /* Container for the message */
+
+        /* Container */
         .container {
             display: flex;
-            flex-direction: column; /* Stacks items vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100%;
             text-align: center;
             position: relative;
             z-index: 10;
-            padding: 20px; /* Add some padding */
-            box-sizing: border-box; /* Include padding in height/width */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* The "i loveee youuu" message */
+        /* Main message */
         .message {
-            font-size: 5rem; /* Large font size */
+            font-size: 5rem;
             color: #fff;
             font-weight: 700;
             font-style: italic;
-            
-            /* Glowing text effect */
-            text-shadow: 
+            text-shadow:
                 0 0 10px #fff,
                 0 0 20px #fff,
-                0 0 40px #E60073, /* A touch of pink/magenta glow */
-                0 0 70px #E60073,
-                0 0 100px #E60073;
-            
-            /* Subtle pulsing animation */
+                0 0 40px var(--accent),
+                0 0 70px var(--accent),
+                0 0 100px var(--accent);
             animation: pulse 4s ease-in-out infinite;
+            line-height: 1;
+            margin-bottom: 12px;
         }
 
-        /* Pulsing animation keyframes */
         @keyframes pulse {
-            0%, 100% {
-                text-shadow: 
+            0%,100%{
+                transform: scale(1);
+                text-shadow:
                     0 0 10px #fff,
                     0 0 20px #fff,
-                    0 0 40px #E60073,
-                    0 0 70px #E60073,
-                    0 0 100px #E60073;
+                    0 0 40px var(--accent),
+                    0 0 70px var(--accent),
+                    0 0 100px var(--accent);
             }
-            50% {
-                text-shadow: 
+            50%{
+                transform: scale(1.02);
+                text-shadow:
                     0 0 5px #fff,
                     0 0 10px #fff,
-                    0 0 20px #E60073,
-                    0 0 40px #E60073,
-                    0 0 70px #E60073;
+                    0 0 20px var(--accent),
+                    0 0 40px var(--accent),
+                    0 0 70px var(--accent);
             }
         }
-        
-        /* --- NEW: The new sub-message --- */
+
+        /* Sub-message */
         .sub-message {
-            font-family: 'Roboto', sans-serif; /* Use a more readable font */
-            font-size: 1.1rem;
-            color: #ddd;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.05rem;
+            color: var(--muted);
             font-weight: 300;
             line-height: 1.6;
-            margin-top: 30px;
+            margin-top: 18px;
             width: 90%;
-            max-width: 500px;
-            text-shadow: 0 0 5px #fff, 0 0 10px #a942ff; /* Using a purple-ish glow */
-            opacity: 0; /* Start hidden */
-            animation: fadeIn 2s ease-in-out 3s forwards; /* Fade in after 3s */
+            max-width: 560px;
+            text-shadow: 0 0 5px #fff, 0 0 10px var(--soft);
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 1.8s forwards;
         }
-
-        /* --- NEW: Animation for the sub-message to fade in --- */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glowing Moon */
+        /* Countdown box */
+        .countdown-wrap{
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            padding: 14px 20px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            min-width: 300px;
+            max-width: 560px;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .countdown {
+            display:flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .time-segment{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 64px;
+        }
+
+        .time-number{
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.6rem;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 10px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.08);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.04);
+            min-width: 64px;
+            text-align: center;
+        }
+
+        .time-label{
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        /* When active (10pm reached) */
+        .celebrate {
+            margin-top: 22px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, rgba(230,0,115,0.14), rgba(169,66,255,0.08));
+            text-shadow: 0 0 10px var(--accent), 0 0 20px var(--soft);
+            animation: celebratePulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes celebratePulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.03); opacity: 0.95; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Moon */
         .moon {
             position: absolute;
             bottom: -50px;
@@ -132,69 +206,177 @@
             height: 200px;
             border-radius: 50%;
             background-color: #f0f0f0;
-            
-            /* Moon glow */
-            box-shadow: 
+            box-shadow:
                 0 0 20px #fff,
                 0 0 40px #fff,
                 0 0 60px #fff,
-                inset -30px -20px 40px #ccc; /* Simulates craters/shadows */
-            
-            /* Moon rising animation */
+                inset -30px -20px 40px #ccc;
             animation: rise 10s ease-out forwards;
         }
 
         @keyframes rise {
-            from {
-                bottom: -200px;
-                right: -200px;
-                opacity: 0;
-            }
-            to {
-                bottom: -50px;
-                right: -50px;
-                opacity: 1;
-            }
+            from { bottom: -200px; right: -200px; opacity: 0; }
+            to   { bottom: -50px; right: -50px; opacity: 1; }
         }
 
-        /* Responsive adjustment for small screens */
-        @media (max-width: 600px) {
-            .message {
-                font-size: 3rem;
-            }
-            /* --- NEW: Responsive style for sub-message --- */
-            .sub-message {
-                font-size: 0.9rem;
-                margin-top: 20px;
-            }
-            .moon {
-                width: 100px;
-                height: 100px;
-                bottom: -25px;
-                right: -25px;
-            }
-            @keyframes rise {
-                to {
-                    bottom: -25px;
-                    right: -25px;
-                    opacity: 1;
-                }
-            }
+        /* small helper text */
+        .hint {
+            margin-top: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            color: #bfbfbf;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px){
+            .message { font-size: 3rem; }
+            .time-number { font-size: 1.15rem; min-width: 54px; }
+            .countdown-wrap { padding: 10px 14px; gap: 10px; }
+            .moon { width: 100px; height: 100px; bottom: -25px; right: -25px; }
         }
     </style>
 </head>
 <body>
     <div class="stars"></div>
-    
-    <div class="container">
-        <div class="moon"></div>
-        <div class="message">
-            i loveee youuu dishuuu
-        </div>
-        
+
+    <div class="container" role="main" aria-labelledby="main-msg">
+        <div class="moon" aria-hidden="true"></div>
+
+        <div id="main-msg" class="message">i loveee youuu dishuuu</div>
+
         <div class="sub-message">
-            From today till the next 7 days , there will be a feature added based on how our days go. Kiss me and check here at 10pm daily for details
+            From today till the next 7 days, there will be a feature added based on how our days go. Kiss me and check here at 10pm daily for details.
         </div>
+
+        <!-- Countdown UI -->
+        <div id="countdownContainer" class="countdown-wrap" aria-live="polite">
+            <div class="countdown" id="countdown">
+                <div class="time-segment">
+                    <div class="time-number" id="hours">00</div>
+                    <div class="time-label">HOURS</div>
+                </div>
+                <div class="time-segment">
+                    <div class="time-number" id="minutes">00</div>
+                    <div class="time-label">MINUTES</div>
+                </div>
+                <div class="time-segment">
+                    <div class="time-number" id="seconds">00</div>
+                    <div class="time-label">SECONDS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hint" id="hint">Next surprise unlocks at 10:00 PM.</div>
     </div>
+
+    <script>
+        // ---------- Countdown script ----------
+        // Targets the next 10:00 PM (22:00) local time. If it's exactly 10:00 or later, targets the next day's 10:00 PM.
+        (function() {
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            const countdownWrap = document.getElementById('countdownContainer');
+            const hintEl = document.getElementById('hint');
+
+            // return next occurrence of local 22:00
+            function nextTenPM(now = new Date()) {
+                // Create a copy
+                const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0);
+                // If it's already 10:00 PM or later (>=), jump to next day
+                if (now >= target) {
+                    target.setDate(target.getDate() + 1);
+                }
+                return target;
+            }
+
+            // Format number to 2 digits
+            function two(n) { return String(n).padStart(2,'0'); }
+
+            // Update loop
+            let target = nextTenPM(new Date());
+
+            function update() {
+                const now = new Date();
+                // If we passed the target (edge cases), re-calc
+                if (now >= target) {
+                    // Show celebration quickly then advance target
+                    onCelebrate();
+                    target = nextTenPM(now);
+                    return; // celebrate will run and next tick will show new countdown
+                }
+
+                const diff = Math.floor((target - now) / 1000); // seconds
+                const hrs = Math.floor(diff / 3600);
+                const mins = Math.floor((diff % 3600) / 60);
+                const secs = diff % 60;
+
+                hoursEl.textContent = two(hrs);
+                minutesEl.textContent = two(mins);
+                secondsEl.textContent = two(secs);
+            }
+
+            // Small celebratory visual when we hit 10pm
+            let celebrating = false;
+            function onCelebrate() {
+                if (celebrating) return;
+                celebrating = true;
+
+                // Replace countdown with celebration message
+                const wrap = document.getElementById('countdownContainer');
+                wrap.innerHTML = '<div class="celebrate" role="status" aria-live="assertive">✨ Surprise unlocked! Check the new feature ✨</div>';
+
+                // Change hint
+                hintEl.textContent = 'It\'s 10:00 PM — open the surprise!';
+
+                // After a short time, reset UI to show the new target countdown
+                setTimeout(() => {
+                    // rebuild the countdown HTML (same structure)
+                    wrap.innerHTML = `
+                        <div class="countdown" id="countdown">
+                            <div class="time-segment">
+                                <div class="time-number" id="hours">00</div>
+                                <div class="time-label">HOURS</div>
+                            </div>
+                            <div class="time-segment">
+                                <div class="time-number" id="minutes">00</div>
+                                <div class="time-label">MINUTES</div>
+                            </div>
+                            <div class="time-segment">
+                                <div class="time-number" id="seconds">00</div>
+                                <div class="time-label">SECONDS</div>
+                            </div>
+                        </div>
+                    `;
+                    // Re-bind elements
+                    hoursEl = document.getElementById('hours');
+                    minutesEl = document.getElementById('minutes');
+                    secondsEl = document.getElementById('seconds');
+
+                    // Reset celebrating and set next target
+                    celebrating = false;
+                    hintEl.textContent = 'Next surprise unlocks at 10:00 PM.';
+                    target = nextTenPM(new Date());
+                    // Run an immediate update to avoid a 1s delay
+                    update();
+                }, 4200); // celebration duration (ms)
+            }
+
+            // Start ticking every 1 second
+            // run once immediately
+            update();
+            setInterval(update, 1000);
+
+            // Accessibility: announce when 10pm will occur next (absolute date/time)
+            function nextTargetLabel() {
+                const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                const t = new Date(target);
+                return `Next surprise scheduled for ${t.toLocaleDateString(undefined, options)} at 10:00 PM.`;
+            }
+            // set title/hint initially
+            hintEl.setAttribute('title', nextTargetLabel());
+        })();
+    </script>
 </body>
 </html>
+
